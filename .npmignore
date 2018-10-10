@@ -1,8 +1,8 @@
-# dependencies
-node_modules/
-
-# # production
+# production
 src/
+
+canon/
+integrations/
 
 # misc
 .DS_Store
@@ -14,3 +14,6 @@ npm-debug.log
 # coverage
 coverage/
 .nyc_output/
+
+# dep
+node_modules/

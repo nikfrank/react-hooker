@@ -1,6 +1,6 @@
 {
   "name": "react-hooker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "HOC for react network hooks",
   "scripts": {
     "test": "jest",
