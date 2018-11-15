@@ -55,3 +55,70 @@ class App extends Component {
 
 export default hooker(App);
 ```
+
+
+## for observables / sockets / triggering updates from a / calling a hook multiple times
+
+```js
+class ticker {
+  constructor( next, done, err ){
+    this.next = next, this.done = done, this.err = err;
+    this.count = 0;
+  }
+
+  cleanup(){
+    clearInterval(this.interval);
+  }
+
+  handleRequest(...args){
+    if(this.interval) clearInterval(this.interval);
+
+    if( !args[0] ) this.done();
+    else if( args[0] < 0 ) this.err('negative tick length not allowed');
+    else this.interval = setInterval(()=> this.next({ count: this.count++ }), args[0]);
+  }
+}
+
+export { ticker }; // from ./network, into the static hooks eventually
+```
+
+this example will make an interval of whatever length you tell it when calling the hook, to update props.count
+
+```js
+this.props.ticker(1000);
+```
+
+calling it again will clear the old interval so you can change the tick length
+
+```js
+this.props.ticker(2000);
+```
+
+without restarting the count
+
+cleanup will be called when the component dismounts (componentWillUnmount)
+
+or when calling the handler with 0
+
+```js
+this.props.ticker(0);
+```
+
+by triggering the done callback
+
+...
+
+errors end up on `this.props[hookName+'HookErr']`
+
+```js
+this.props.ticker(-1);
+
+//...
+
+render(){
+  console.log(this.props.tickerHookErr); // 'negative tick length not allowed'
+  return (<JSX/>);
+}
+```
+
+you can also return a promise from handleRequest that will be the result of calling the hook each time, resolved after the setState is done (and so your props will be updated)

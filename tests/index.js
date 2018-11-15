@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import connectHooks from './connectHooks';
+import connectHooks from '../';
 
 import Enzyme, { mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
