@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import hooker from '../../../';
+import hooker from 'react-hooker';
 
 import CoinPicker from './CoinPicker';
 import RatesChart from './RatesChart';

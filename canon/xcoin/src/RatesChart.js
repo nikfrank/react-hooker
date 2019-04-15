@@ -5,7 +5,7 @@ const dayFromEpochSeconds = epochSeconds =>
   (new Date(epochSeconds * 1000)).toLocaleDateString('en-US');
 
 export default ({ rates=[] })=> (
-  !rates.length ? null (
+  !rates.length ? null : (
     <LineChart width={600} height={300} data={rates}
                margin={{top: 5, right: 30, left: 20, bottom: 5}}>
       <XAxis dataKey='time' tickFormatter={dayFromEpochSeconds}/>
